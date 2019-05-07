@@ -1,17 +1,28 @@
-from flask import Flask
+from flask import Flask,url_for
 from flask_restplus import Api, Resource, fields
 from os import environ
 from flask_marshmallow import Marshmallow
-from flask_sqlalchemy import SQLAlchemy
-from marshmallow import Schema, fields as ma_fields
+# from flask_sqlalchemy import SQLAlchemy
+# from marshmallow import Schema, fields as ma_fields
+
+class Custom_API(Api):
+    @property
+    def specs_url(self):
+        '''
+        The Swagger specifications absolute url (ie. `swagger.json`)
+
+        :rtype: str
+        '''
+        return url_for(self.endpoint('specs'), _external=False)
 
 app = Flask(__name__)
-api = Api(app, version='1.0', title='POC API',
+
+api = Custom_API(app, version='1.0', title='POC API',
           description='A simple POC API',
           )
 
 # app configuration
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://4xBEJzOgUQ:thansoft105@remotemysql.com/4xBEJzOgUQ"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://4xBEJzOgUQ:thansoft105@remotemysql.com/4xBEJzOgUQ"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 category_ns = api.namespace('category', description='category in budget')

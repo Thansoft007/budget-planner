@@ -16,6 +16,21 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 category_ns = api.namespace('category', description='category in budget')
 
+
+# category list operations
+@category_ns.route('')
+class CategoryList(Resource):
+
+    @category_ns.doc('list categories')
+    def get(self):
+        return "testing"
+
+    @category_ns.doc('create category')
+    @category_ns.response(201, 'Created')
+    def post(self):
+        return "category created successfully", 201
+
+
 # orm = SQLAlchemy(app)
 # serializer = Marshmallow(app)
 
@@ -77,19 +92,18 @@ category_ns = api.namespace('category', description='category in budget')
 #         return "category created successfully", 201
 #
 
-@category_ns.route('/<int:cat_id>')
-@category_ns.param('cat_id', 'category id')
-class Category(Resource):
-    @category_ns.doc('create category')
-    @category_ns.response(201, 'created')
-    def get(self, cat_id):
-        return "getting category of id {0}".format(cat_id)
-
-    @category_ns.doc('create category')
-    @category_ns.response(201, 'Created')
-    def post(self, message):
-        return message
-
+# @category_ns.route('/<int:cat_id>')
+# @category_ns.param('cat_id', 'category id')
+# class Category(Resource):
+#     @category_ns.doc('create category')
+#     @category_ns.response(201, 'created')
+#     def get(self, cat_id):
+#         return "getting category of id {0}".format(cat_id)
+#
+#     @category_ns.doc('create category')
+#     @category_ns.response(201, 'Created')
+#     def post(self, message):
+#         return message
 
 if __name__ == "__main__":
     # orm.create_all()

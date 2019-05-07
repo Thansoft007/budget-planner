@@ -17,8 +17,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 category_ns = api.namespace('category', description='category in budget')
 
 
+@app.route("/")
+def testing():
+    return "testing"
+
+
 # category list operations
-@category_ns.route('')
+@category_ns.route('/testing')
 class CategoryList(Resource):
 
     @category_ns.doc('list categories')

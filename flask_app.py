@@ -18,17 +18,6 @@ serializer.init_app(app)
 api.init_app(app)
 jwt = JWT(app, authenticate, identity)
 
-def customized_error_handler(error):
-    return jsonify({
-        'message': error.description,
-        'code': error.status_code
-    }), error.status_code
-
-
-jwt.jwt_error_handler()
-
-
-
 if __name__ == "__main__":
     # orm.create_all()
     app.run(debug=False, port=environ.get('PORT', 5000), host="0.0.0.0")
